@@ -1,5 +1,6 @@
 # Phi's Carefree Leveling
-Optimal vanilla leveling for OpenMW 0.48
+Updated by Kartoffels with information from RonikTR to OpenMW 0.49.
+Optimal vanilla leveling for OpenMW 0.49
 
 ## TES3MP
 The TES3MP version is in the `pclmp` folder.  Theres a README for TES3MP in there.
@@ -39,7 +40,7 @@ for example
 
 ## Installation and Use
 
-REQUIRES OPENMW 0.48 OR HIGHER
+REQUIRES OPENMW 0.49 OR HIGHER
 
 REQUIRES A FRESH SAVE TO WORK.  The scripts should just ignore old saves (though you will get a message about missing data).
 

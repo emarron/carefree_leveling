@@ -25,7 +25,8 @@ local function same_line_a(t, rpx, a)
     return {
         template = templates.textNormal,
         props = {
-            position = util.vector2(text_feed_offset_x * (0.5 - rpx) * 2, text_feed_offset_y + (text_feed_lines * constants.LINE_HEIGHT)),
+            position = util.vector2(text_feed_offset_x * (0.5 - rpx) * 2,
+                text_feed_offset_y + (text_feed_lines * constants.LINE_HEIGHT)),
             relativePosition = util.vector2(rpx, text_feed_rpy),
             anchor = util.vector2(a, 0),
             text = t,
@@ -83,7 +84,8 @@ local status_element = nil
 local attribute_data = nil
 
 local function update_size()
-    status_layout.props.size = util.vector2(status_layout.props.size.x, ((text_feed_lines + 1) * constants.LINE_HEIGHT) + (constants.BORDER_SIZE * 4))
+    status_layout.props.size = util.vector2(status_layout.props.size.x,
+        ((text_feed_lines + 1) * constants.LINE_HEIGHT) + (constants.BORDER_SIZE * 4))
 end
 
 local function reset_status_layout()
@@ -102,8 +104,8 @@ local function reset_status_layout()
             if attr.owed ~= 0 or attr.skillups ~= 0 then
                 attr_count = attr_count + 1
                 table.insert(content, new_line_l(attr.name:gsub("^%l", string.upper)))
-                table.insert(content, same_line_a('+'..attr.owed, 0.65, 1))
-                table.insert(content, same_line_r(''..attr.skillups))
+                table.insert(content, same_line_a('+' .. attr.owed, 0.65, 1))
+                table.insert(content, same_line_r('' .. attr.skillups))
             end
         end
         if attr_count == 0 then
@@ -125,7 +127,7 @@ local function reset_status_layout()
 end
 
 
-local function show_status() 
+local function show_status()
     reset_status_layout()
     local props = {
         position = util.vector2(0, 0),
@@ -137,7 +139,7 @@ local function show_status()
         props.anchor = nil
         props.relativePosition = nil
     end
-    status_element = ui.create{
+    status_element = ui.create {
         layer = 'Windows',
         template = templates.boxTransparentThick,
         props = props,
@@ -146,7 +148,7 @@ local function show_status()
         },
     }
 end
-local function hide_status() 
+local function hide_status()
     status_element:destroy()
     status_element = nil
 end
@@ -159,13 +161,13 @@ local function update_status()
 end
 
 return {
-    save = function ()
+    save = function()
         return {
             show_status = status_element ~= nil,
             set_pos = set_pos,
         }
     end,
-    load = function (data)
+    load = function(data)
         set_pos = data.set_pos
         if data.show_status then
             show_status()

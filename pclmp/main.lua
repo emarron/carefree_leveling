@@ -40,33 +40,33 @@ local attributes = {
 }
 
 local skills = {
-   'Block',
-   'Armorer',
-   'Mediumarmor',
-   'Heavyarmor',
-   'Bluntweapon',
-   'Longblade',
-   'Axe',
-   'Spear',
-   'Athletics',
-   'Enchant',
-   'Destruction',
-   'Alteration',
-   'Illusion',
-   'Conjuration',
-   'Mysticism',
-   'Restoration',
-   'Alchemy',
-   'Unarmored',
-   'Security',
-   'Sneak',
-   'Acrobatics',
-   'Lightarmor',
-   'Shortblade',
-   'Marksman',
-   'Mercantile',
-   'Speechcraft',
-   'Handtohand',
+    'Block',
+    'Armorer',
+    'Mediumarmor',
+    'Heavyarmor',
+    'Bluntweapon',
+    'Longblade',
+    'Axe',
+    'Spear',
+    'Athletics',
+    'Enchant',
+    'Destruction',
+    'Alteration',
+    'Illusion',
+    'Conjuration',
+    'Mysticism',
+    'Restoration',
+    'Alchemy',
+    'Unarmored',
+    'Security',
+    'Sneak',
+    'Acrobatics',
+    'Lightarmor',
+    'Shortblade',
+    'Marksman',
+    'Mercantile',
+    'Speechcraft',
+    'Handtohand',
 }
 
 local governing_attribute = {
@@ -139,7 +139,7 @@ local function increase_attribute(pid, attribute, val)
             new = 100
         end
         set_attribute(pid, attribute, new)
-        message_box(pid, attribute .. ' increased to ' .. new .. '!' )
+        message_box(pid, attribute .. ' increased to ' .. new .. '!')
     end
 end
 
@@ -166,7 +166,8 @@ local function get_attribute_points_owed(pid, attr)
 end
 
 local function add_attribute_skill_ups(pid, attr, val)
-    Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] = Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] + val
+    Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] = Players[pid].data.customVariables.PCLMP
+    .attribute_skill_ups[attr] + val
 end
 
 local function cache_attributes(pid)
@@ -178,8 +179,10 @@ end
 local function increase_attribute_if_needed(pid, attr)
     local val = 0
     while get_attribute_points_owed(pid, attr) > 0 and get_attribute_skill_ups(pid, attr) >= 2 do
-        Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] = Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] - 2
-        Players[pid].data.customVariables.PCLMP.attribute_points_owed[attr] = Players[pid].data.customVariables.PCLMP.attribute_points_owed[attr] - 1
+        Players[pid].data.customVariables.PCLMP.attribute_skill_ups[attr] = Players[pid].data.customVariables.PCLMP
+        .attribute_skill_ups[attr] - 2
+        Players[pid].data.customVariables.PCLMP.attribute_points_owed[attr] = Players[pid].data.customVariables.PCLMP
+        .attribute_points_owed[attr] - 1
         val = val + 1
     end
     if val > 0 then
@@ -208,7 +211,7 @@ local function update_attribute_multipliers(pid)
             mul = 5
         elseif s >= 4 then
             mul = 1
-        elseif s >=2 then
+        elseif s >= 2 then
             mul = 0
         end
         Players[pid].data.attributes[attribute].skillIncrease = mul
@@ -302,18 +305,21 @@ end
 function pclmp.on_level(eventStatus, pid)
     if has_pcl(pid) then
         if get_current_level(pid) > Players[pid].data.customVariables.PCLMP.cached_level then
-            Players[pid].data.customVariables.PCLMP.cached_level = Players[pid].data.customVariables.PCLMP.cached_level + 1
+            Players[pid].data.customVariables.PCLMP.cached_level = Players[pid].data.customVariables.PCLMP.cached_level +
+            1
 
             local attrs_increased = 0
             for _, attribute in ipairs(attributes) do
                 if get_attribute(pid, attribute) > get_cached_attribute(pid, attribute) then
                     attrs_increased = attrs_increased + 1
                     if attribute == 'Luck' then
-                        local new_luck = Players[pid].data.customVariables.PCLMP.cached_attributes[attribute] + LUCK_MULTIPLIER
+                        local new_luck = Players[pid].data.customVariables.PCLMP.cached_attributes[attribute] +
+                        LUCK_MULTIPLIER
                         set_attribute(pid, 'Luck', new_luck)
                     else
                         if get_attribute(pid, attribute) + Players[pid].data.customVariables.PCLMP.attribute_points_owed[attribute] + 5 <= 100 then
-                            Players[pid].data.customVariables.PCLMP.attribute_points_owed[attribute] = Players[pid].data.customVariables.PCLMP.attribute_points_owed[attribute] + 5
+                            Players[pid].data.customVariables.PCLMP.attribute_points_owed[attribute] = Players[pid].data
+                            .customVariables.PCLMP.attribute_points_owed[attribute] + 5
                             attrs_increased = attrs_increased + 1
                         end
                     end
@@ -376,7 +382,7 @@ function pclmp.verbose_cmd(pid, cmd)
                         mul = 1
                     end
                     if skillups == 1 then
-                        increases = increases ..  '1 skill increase'
+                        increases = increases .. '1 skill increase'
                     else
                         increases = increases .. skillups .. ' skill increases'
                     end

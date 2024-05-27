@@ -19,35 +19,36 @@ I.Settings.registerPage {
     description = NAME .. " settings",
 }
 
-I.Settings.registerRenderer('inputKeySelection', function(value, set)
-    local name = 'No Key Set'
-    if value then
-        name = input.getKeyName(value)
-    end
-    return {
-        template = I.MWUI.templates.box,
-        content = ui.content {
-            {
-                template = I.MWUI.templates.padding,
-                content = ui.content {
-                    {
-                        template = I.MWUI.templates.textEditLine,
-                        props = {
-                            text = name,
-                        },
-                        events = {
-                            keyPress = async:callback(function(e)
-                                
-                                set(e.code)
-                            end),
-                        },
-                    },
-                },
-            },
-        },
+-- for openmw 0.48
+-- I.Settings.registerRenderer('inputKeySelection', function(value, set)
+--     local name = 'No Key Set'
+--     if value then
+--         name = input.getKeyName(value)
+--     end
+--     return {
+--         template = I.MWUI.templates.box,
+--         content = ui.content {
+--             {
+--                 template = I.MWUI.templates.padding,
+--                 content = ui.content {
+--                     {
+--                         template = I.MWUI.templates.textEditLine,
+--                         props = {
+--                             text = name,
+--                         },
+--                         events = {
+--                             keyPress = async:callback(function(e)
 
-    }
-end)
+--                                 set(e.code)
+--                             end),
+--                         },
+--                     },
+--                 },
+--             },
+--         },
+
+--     }
+-- end)
 
 I.Settings.registerGroup {
     key = PREFIX .. 'SettingsControls',
@@ -97,14 +98,14 @@ I.Settings.registerGroup {
     name = 'Misc',
     permanentStorage = false,
     settings = {
-        -- In vanilla Morrowind, health starts as the average of endurance and strength and you gain one 10th of your *current* endurance each level.  
-        -- This means that to have the most health at a given level, you need to prioritize leveling endurance x5 every level until it is capped, 
+        -- In vanilla Morrowind, health starts as the average of endurance and strength and you gain one 10th of your *current* endurance each level.
+        -- This means that to have the most health at a given level, you need to prioritize leveling endurance x5 every level until it is capped,
         -- which may not be fun or fit your character's archetype.
-        -- Instead, when this setting is enabled, maximum health will be recalculated on each level up to be the amount you would have gotten if you 
-        -- had prioritized leveling up endurance +5 every level until it reached your current endurance value.  
-        -- This is to say, with this on, two characters at the same level, with the same endurance 
+        -- Instead, when this setting is enabled, maximum health will be recalculated on each level up to be the amount you would have gotten if you
+        -- had prioritized leveling up endurance +5 every level until it reached your current endurance value.
+        -- This is to say, with this on, two characters at the same level, with the same endurance
         -- (and the same starting endurance and starting strength) will have the same health regardless of the *order* in which they raised their attributes
-        -- (and will have the same health as a vanilla morrowind character who carefully prioritized 
+        -- (and will have the same health as a vanilla morrowind character who carefully prioritized
         -- their endurance gain at early levels rather than waiting to increase it until later),
         {
             key = 'retroactive_health',
@@ -138,7 +139,7 @@ I.Settings.registerGroup {
             default = ' 1 ',
             argument = {
                 l10n = PREFIX,
-                items = {' 1 ',' 2 ',' 3 ',' 4 ',' 5 '},
+                items = { ' 1 ', ' 2 ', ' 3 ', ' 4 ', ' 5 ' },
             },
         },
     },
@@ -150,7 +151,7 @@ return {
     end,
     status_alignment = function()
         local ui_settings = storage.playerSection(PREFIX .. 'SettingsUI')
-        return v2(ui_settings:get('status_horizontal'),ui_settings:get('status_vertical'))
+        return v2(ui_settings:get('status_horizontal'), ui_settings:get('status_vertical'))
     end,
     luck_multiplier = function()
         -- I cannot explain why this is necessary but without an intermediate variable, tonumber can return nil
